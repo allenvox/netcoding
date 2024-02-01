@@ -5,7 +5,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
-const int BUF_SIZE = 1024;
+const int BUF_SIZE = 64;
 
 int main() {
   // Create a socket

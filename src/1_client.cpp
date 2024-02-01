@@ -4,7 +4,7 @@
 #include <iostream>
 #include <unistd.h>
 
-const int BUF_SIZE = 1024;
+const int BUF_SIZE = 64;
 
 int main(int argc, char *argv[]) {
   if (argc != 3) {
