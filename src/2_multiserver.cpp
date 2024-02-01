@@ -66,17 +66,15 @@ int main() {
     }
 
     while (true) {
-        socklen_t sin_size = sizeof(struct sockaddr_in);
-
         // Accept input connection
-        int new_fd;
         struct sockaddr_in client_addr;
+        socklen_t sin_size = sizeof(struct sockaddr_in);
+        int new_fd; // New socket for handling client request
         if ((new_fd = accept(sockfd, (struct sockaddr *)&client_addr, &sin_size)) == -1) {
-            perror("accept");
+            std::cerr << "Failed accepting client request\n";
             continue;
         }
-
-        std::cout << "Server: got connection from " << inet_ntoa(client_addr.sin_addr) << '\n';
+        std::cout << "Connection from " << inet_ntoa(client_addr.sin_addr) << '\n';
 
         // Create child process to handle client request
         if (!fork()) {
@@ -87,17 +85,16 @@ int main() {
             int num_bytes_recv;
             while ((num_bytes_recv = recv(new_fd, buffer, BUF_SIZE - 1, 0)) > 0) {
                 buffer[num_bytes_recv] = '\0';
-                std::cout << "Received: " << buffer << std::endl;
+                std::cout << "Received: " << buffer << '\n';
             }
 
             if (num_bytes_recv == 0) {
-                std::cout << "Connection closed by client." << std::endl;
+                std::cout << "Connection closed by client\n";
             } else if (num_bytes_recv == -1) {
-                perror("recv");
+                std::cerr << "Failed receiving client data\n";
             }
-
             close(new_fd); // Close child proc's socket
-            exit(0);
+            return 0;
         }
         close(new_fd); // Close socket read descriptor in parent proc
     }
