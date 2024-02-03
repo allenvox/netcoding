@@ -35,15 +35,15 @@ int main(int argc, char *argv[]) {
     }
 
     // Send data to server
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 1; i <= 5; ++i) {
         char buf[BUF_SIZE];
-        snprintf(buf, BUF_SIZE, "Message %d from client", i + 1);
+        snprintf(buf, BUF_SIZE, "%d", i);
         if (send(sockfd, buf, strlen(buf), 0) == -1) {
             std::cerr << "Failed to send message\n";
             close(sockfd);
             return 1;
         }
-        std::cout << "Message " << i + 1 << " sent to server\n";
+        std::cout << "Message " << i << " sent to server\n";
         sleep(i);
     }
 

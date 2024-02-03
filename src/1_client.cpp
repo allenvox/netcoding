@@ -33,10 +33,10 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  for (int i = 0; i < 5; ++i) { // 5 packages
+  for (int i = 1; i <= 5; ++i) { // 5 packages
     // Create package message
     char buffer[BUF_SIZE];
-    snprintf(buffer, BUF_SIZE, "Message %d from client", i);
+    snprintf(buffer, BUF_SIZE, "%d", i);
 
     // Send data to server
     if (sendto(sockfd, buffer, strlen(buffer), 0, (struct sockaddr *)&servaddr,
