@@ -1,4 +1,4 @@
-file(GLOB APP_SOURCES *.cpp)
+file(GLOB APP_SOURCES */*.cpp)
 
 foreach(testsourcefile ${APP_SOURCES})
     get_filename_component(testname ${testsourcefile} NAME_WE)
